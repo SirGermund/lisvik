@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth myAuth;
 
     private Intent registerActivity;
-    private Intent homeActivity;
 
 
 
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
         myAuth=FirebaseAuth.getInstance();
 
-        homeActivity=new Intent(this, com.example.lisvikproject.Activities.HomeActivity.class);
         registerActivity=new Intent(this, com.example.lisvikproject.Activities.RegisterActivity.class);
 
         loginProgressBar.setVisibility(View.INVISIBLE);
@@ -59,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(mail.isEmpty()||password.isEmpty()){
                     showMessage("Не введен логин или пароль.");
+                    loginProgressBar.setVisibility(View.INVISIBLE);
+                    btnLogin.setVisibility(View.VISIBLE);
                 }else{
                     signIn(mail, password);
                 }
@@ -89,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }else{
 
+                    loginProgressBar.setVisibility(View.INVISIBLE);
+                    btnLogin.setVisibility(View.VISIBLE);
                     showMessage(task.getException().getMessage());
                 }
             }
@@ -97,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI() {
 
+        Intent homeActivity=new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(homeActivity);
         finish();
 
