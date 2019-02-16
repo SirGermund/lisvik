@@ -26,9 +26,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.*;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -139,7 +142,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     //update user photo, age and name
     private void updateUserInfo(final String name, Uri pickedImgUri, String age, final FirebaseUser currentUser) {
-
         //first we need to upload user photo to firebase storage and get url
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
         final StorageReference imageFilePath = mStorage.child(pickedImgUri.getLastPathSegment());
