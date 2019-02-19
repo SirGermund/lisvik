@@ -142,6 +142,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     //update user photo, age and name
     private void updateUserInfo(final String name, Uri pickedImgUri, String age, final FirebaseUser currentUser) {
+
+        // Делаем мапу юзера
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> user = new HashMap<>();
+        user.put("Name", name);
+        user.put("Age", age);
+        user.put("Email", currentUser.getEmail());
+
+        // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
+        db.collection("users").document(currentUser.getUid()).set(user);
+
         //first we need to upload user photo to firebase storage and get url
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
         final StorageReference imageFilePath = mStorage.child(pickedImgUri.getLastPathSegment());
