@@ -7,7 +7,6 @@
     tools:context=".Activities.RegisterActivity">
 
     <EditText
-        android:background="@drawable/reg_edittext_style"
         android:id="@+id/regEmail"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
@@ -16,6 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Электронная почта"
         android:inputType="textEmailAddress"
@@ -24,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:background="@drawable/reg_edittext_style"
         android:id="@+id/regPassword"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
@@ -33,6 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Пароль"
         android:inputType="textPassword"
@@ -58,7 +58,6 @@
         app:layout_constraintVertical_bias="0.828" />
 
     <EditText
-        android:background="@drawable/reg_edittext_style"
         android:id="@+id/regName"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
@@ -67,6 +66,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Имя"
         android:inputType="textPersonName"
@@ -75,7 +75,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:background="@drawable/reg_edittext_style"
         android:id="@+id/regPassword2"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
@@ -84,6 +83,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Повторите пароль"
         android:inputType="textPassword"
@@ -92,7 +92,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:background="@drawable/reg_edittext_style"
         android:id="@+id/regAge"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
@@ -101,6 +100,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Возраст"
         android:inputType="number"
@@ -120,17 +120,24 @@
 
     <ImageView
         android:id="@+id/regUserPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="47dp"
-        app:layout_constraintBottom_toTopOf="@+id/regName"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/userphoto" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.37" />
 </android.support.constraint.ConstraintLayout>
