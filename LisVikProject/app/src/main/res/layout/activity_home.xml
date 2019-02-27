@@ -9,22 +9,25 @@
     android:orientation="vertical"
     android:id="@+id/drawerLayout">
 
-    <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activities.HomeActivity">
-    </RelativeLayout>
-
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu">
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/navigation_menu"></android.support.design.widget.NavigationView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activities.HomeActivity">
+
+        <Button
+            android:id="@+id/toTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="К викторине!"
+            android:textSize="30sp" />
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
