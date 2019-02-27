@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/myInformation"
+        android:title="Личная информация">
+    </item>
+
+    <item
+        android:id="@+id/myAchivements"
+        android:title="Достижения">
+    </item>
+
+    <item
+        android:id="@+id/myNews"
+        android:title="Новости">
+    </item>
+
+    <item
+        android:id="@+id/exit"
+        android:title="Выйти">
+    </item>
+
+</menu>
