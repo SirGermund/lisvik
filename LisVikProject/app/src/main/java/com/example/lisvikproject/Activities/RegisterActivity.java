@@ -3,12 +3,10 @@ package com.example.lisvikproject.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,20 +26,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.util.*;
 
 public class RegisterActivity extends AppCompatActivity {
 
     static int PReqCode = 1;
     static int REQUESTCODE=1;
-    Uri pickedImgUri = Uri.parse("android.resource://com.example.lisvikproject/" + R.drawable.userphoto);
+    Uri pickedImgUri;
     ImageView imgUserPhoto;
 
     private EditText userEmail, userPassword, userPassword2, userName, userAge;
@@ -71,20 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
 
-        imgUserPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (Build.VERSION.SDK_INT>=22){
-                    checkAndRequestForPermission();
-                }else{
-                    openGallery();
-                }
-
-
-            }
-        });
-
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String name=userName.getText().toString();
                 final String age=userAge.getText().toString();
 
-                if(email.isEmpty()||name.isEmpty()||age.isEmpty()||password.isEmpty()|| password.isEmpty()||password2.isEmpty()){
+                if(email.isEmpty()||name.isEmpty()||age.isEmpty()||password.isEmpty()|| !password.equals(password2)){
 
                     //something goes wrong: all fields must be filled
                     //we need to display an error message
@@ -105,18 +84,27 @@ public class RegisterActivity extends AppCompatActivity {
                     regBtn.setVisibility(View.VISIBLE);
                     loadingProgress.setVisibility(View.INVISIBLE);
                 }else{
-                    if(!password.equals(password2)){
-                        showMessage("Пароли не совпадают!");
-                        regBtn.setVisibility(View.VISIBLE);
-                        loadingProgress.setVisibility(View.INVISIBLE);
-                    }else {
 
-                        //everything is OK and all fields are filled, now we cat start creating user account
-                        //createUserAccount method will try to create the user, if the email is valid
+                    //everithing is OK and all fields are filled, now we cat ctart creating user account
+                    //createUserAccount method will try to create the user, if the email is valid
 
-                        сreateUserAccount(email, name, age, password);
-                    }
+                    сreateUserAccount(email, name, age, password);
                 }
+
+            }
+        });
+
+
+        imgUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT>=22){
+                    checkAndRequestForPermission();
+                }else{
+                    openGallery();
+                }
+
 
             }
         });
@@ -151,16 +139,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     //update user photo, age and name
     private void updateUserInfo(final String name, Uri pickedImgUri, String age, final FirebaseUser currentUser) {
-
-        // Делаем мапу юзера
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> user = new HashMap<>();
-        user.put("Name", name);
-        user.put("Age", age);
-        user.put("Email", currentUser.getEmail());
-
-        // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
-        db.collection("users").document(currentUser.getUid()).set(user);
 
         //first we need to upload user photo to firebase storage and get url
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
@@ -216,28 +194,16 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
-        ParcelFileDescriptor parcelFileDescriptor =
-                getContentResolver().openFileDescriptor(uri, "r");
-        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-        parcelFileDescriptor.close();
-        return image;
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode==RESULT_OK && requestCode==REQUESTCODE && data!=null){
             //the user has successfully picked an image
             //we need to save it's reference
             pickedImgUri = data.getData();
-
             imgUserPhoto.setImageURI(pickedImgUri);
         }
-
-
     }
 
     /*
