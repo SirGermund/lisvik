@@ -161,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("Email", currentUser.getEmail());
 
         // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
-        db.collection("users").document(currentUser.getEmail()).set(user);
+        db.collection("users").document(currentUser.getUid()).set(user);
 
         //first we need to upload user photo to firebase storage and get url
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
