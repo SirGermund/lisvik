@@ -13,13 +13,6 @@
         android:layout_height="match_parent"
         tools:context=".Activities.HomeActivity">
 
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-
         <Button
             android:id="@+id/toTest"
             android:layout_width="wrap_content"
