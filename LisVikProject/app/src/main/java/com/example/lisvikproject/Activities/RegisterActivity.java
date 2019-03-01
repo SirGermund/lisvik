@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -158,6 +159,14 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("Name", name);
         user.put("Age", age);
         user.put("Email", currentUser.getEmail());
+
+
+//        //////////////////////---------------------------------///////////////////////
+//        Intent intent=new Intent(getApplicationContext(), InformationActivity.class);
+//        intent.putExtra("email", currentUser.getEmail());
+//        ///////////////////////--------------------------------///////////////////////
+
+
 
         // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
         db.collection("users").document(currentUser.getEmail()).set(user);

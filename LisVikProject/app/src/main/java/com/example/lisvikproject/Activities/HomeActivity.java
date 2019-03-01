@@ -17,10 +17,6 @@ import android.widget.Toast;
 
 import com.example.lisvikproject.R;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -104,6 +100,27 @@ public class HomeActivity extends AppCompatActivity {
                 "Отвечай на вопросы правильно и зарабатывай как можно\n" +
                 "больше монеток, чтобы потратить их на развлечения!\n" +
                 "Скорее начинай и удачи!!!");
+        builder.setCancelable(true);
+        builder.setNeutralButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * To show to user the info about the test
+     */
+    public void showAlertDialogOfInfoAboutChild(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Личная информация");
+        builder.setMessage("nnfjf");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
