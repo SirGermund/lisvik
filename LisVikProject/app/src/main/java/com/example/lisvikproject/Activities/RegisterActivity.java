@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -160,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("Email", currentUser.getEmail());
 
         // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
-        db.collection("users").document(currentUser.getUid()).set(user);
+        db.collection("users").document(currentUser.getEmail()).set(user);
 
         //first we need to upload user photo to firebase storage and get url
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");

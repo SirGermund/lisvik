@@ -2,6 +2,7 @@ package com.example.lisvikproject.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +17,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.lisvikproject.R;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -54,23 +51,21 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (id) {
                     case R.id.myInformation:
-                        Toast.makeText(HomeActivity.this, "Моя информация", Toast.LENGTH_SHORT).show();
+                        showAlertDialogOfInfoAboutChild();
                         break;
                     case R.id.myAchivements:
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.myNews:
-                        Toast.makeText(HomeActivity.this, "Новости", Toast.LENGTH_SHORT).show();
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/pg/LisVikGame/events/?ref=page_internal"));
+                        startActivity(browserIntent);
                         break;
                     case R.id.exit:
                         Toast.makeText(HomeActivity.this, "Выйти", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rules:
-                        Toast.makeText(HomeActivity.this, "Правила", Toast.LENGTH_SHORT).show();
                         showAlertDialogOfInfo();
                         break;
-                    default:
-                        Toast.makeText(HomeActivity.this, "Something goes wrong...", Toast.LENGTH_SHORT).show();
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -87,15 +82,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-//чтобы при нажатии на назад на панели экрана закрывалась боковая панель
-//    @Override
-//    public void onBackPressed() {
-//        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }else{
-//            super.onBackPressed();
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -109,7 +95,37 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Правила викторины");
-        builder.setMessage("nnfjf");
+        builder.setMessage("Привет! Хочешь заработать монетки? \n" +
+                "Тогда скорее отвечай на вопросы викторины \"ЛИСВИК\"!\n" +
+                "Все просто! \n" +
+                "Выбери свой возраст и интересную тему.\n" +
+                "Далее ответь на 10 вопросов. Но будь внимателен!\n" +
+                "На ответ дано всего лишь 60 секунд.\n" +
+                "За каждый провильный вопрос тебе начисляется одна монетка.\n" +
+                "Отвечай на вопросы правильно и зарабатывай как можно\n" +
+                "больше монеток, чтобы потратить их на развлечения!\n" +
+                "Скорее начинай и удачи!!!");
+        builder.setCancelable(true);
+        builder.setNeutralButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * To show to user the info about the test
+     */
+    public void showAlertDialogOfInfoAboutChild(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Личная информация");
+        builder.setMessage("инфаааа");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
