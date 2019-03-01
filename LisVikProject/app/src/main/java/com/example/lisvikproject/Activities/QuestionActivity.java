@@ -66,8 +66,6 @@ public class QuestionActivity extends AppCompatActivity {
         // чтение вопросов
         qlist = new ArrayList<>();
         readQuestions(ageValue, categoryValue);
-        //обновление вопроса
-        updateQuestion(0);
     }
 
     private void updateQuestion(final int i) {
@@ -257,7 +255,8 @@ public class QuestionActivity extends AppCompatActivity {
                             d = list.get(i).getData();
                             qlist.add(new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString()));
                         }
-
+                        //обновление вопроса
+                        updateQuestion(0);
                     }
                 });
 
