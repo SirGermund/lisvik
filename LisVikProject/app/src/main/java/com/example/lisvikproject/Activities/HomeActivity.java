@@ -17,6 +17,10 @@ import android.widget.Toast;
 
 import com.example.lisvikproject.R;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -52,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.myInformation:
                         Toast.makeText(HomeActivity.this, "Моя информация", Toast.LENGTH_SHORT).show();
                         break;
-
                     case R.id.myAchivements:
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
                         break;
@@ -106,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Правила викторины");
-        builder.setMessage("СООБЩЕНИЕ.........");
+        builder.setMessage("nnfjf");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {

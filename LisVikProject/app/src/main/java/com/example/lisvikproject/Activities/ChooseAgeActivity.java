@@ -46,24 +46,6 @@ public class ChooseAgeActivity extends AppCompatActivity{
 
         under7.setOnClickListener(onClickListener);
         above7.setOnClickListener(onClickListener);
-
-//        above7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(getApplicationContext(), ChooseCategoryActivity.class);
-//                intent.putExtra("age", "above7");
-//                startActivity(intent);
-//            }
-//        });
-//
-//        under7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(getApplicationContext(), ChooseCategoryActivity.class);
-//                intent.putExtra("age", "under7");
-//                startActivity(intent);
-//            }
-//        });
     }
 
 
