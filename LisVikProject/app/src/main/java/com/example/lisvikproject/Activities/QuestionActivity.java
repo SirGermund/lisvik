@@ -79,50 +79,49 @@ public class QuestionActivity extends AppCompatActivity {
         } else {
             //пытаюсь обратиться к вопросу из определенной категории и возраста
 
-
-            ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-            ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-            ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
-
             ans1.setText(qlist.get(i).getAnswer1());
             ans2.setText(qlist.get(i).getAnswer2());
             ans3.setText(qlist.get(i).getAnswer3());
             questionText.setText(qlist.get(i).getQuestion());
             questionNumber.setText("Вопрос номер " + total);
 
+            ans1.setBackgroundResource(R.drawable.button_simple);
+            ans2.setBackgroundResource(R.drawable.button_simple);
+            ans3.setBackgroundResource(R.drawable.button_simple);
+
 
             ans1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans1.setBackgroundColor(Color.GREEN);
+                        ans1.setBackgroundResource(R.drawable.button_correct);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 correct++;
-                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans1.setBackgroundResource(R.drawable.button_correct);
 
                                 updateQuestion(i + 1);
                             }
                         }, 1500);
                     } else {
                         //answer is wrong...
-                        ans1.setBackgroundColor(Color.RED);
+                        ans1.setBackgroundResource(R.drawable.button_wrong);
                         if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans2.setBackgroundColor(Color.GREEN);
+                            ans2.setBackgroundResource(R.drawable.button_correct);
                         } else if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans3.setBackgroundColor(Color.GREEN);
+                            ans3.setBackgroundResource(R.drawable.button_correct);
                         }
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
 
+                                ans1.setBackgroundResource(R.drawable.button_simple);
+                                ans2.setBackgroundResource(R.drawable.button_simple);
+                                ans3.setBackgroundResource(R.drawable.button_simple);
                                 updateQuestion(i + 1);
                             }
                         }, 1500);
@@ -134,33 +133,33 @@ public class QuestionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans2.setBackgroundColor(Color.GREEN);
+                        ans2.setBackgroundResource(R.drawable.button_correct);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 correct++;
-                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans2.setBackgroundResource(R.drawable.button_correct);
 
                                 updateQuestion(i + 1);
                             }
                         }, 1500);
                     } else {
                         //answer is wrong...
-                        ans2.setBackgroundColor(Color.RED);
+                        ans2.setBackgroundResource(R.drawable.button_wrong);
                         if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundColor(Color.GREEN);
+                            ans1.setBackgroundResource(R.drawable.button_correct);
                         } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundColor(Color.GREEN);
+                            ans1.setBackgroundResource(R.drawable.button_correct);
                         }
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans1.setBackgroundResource(R.drawable.button_simple);
+                                ans2.setBackgroundResource(R.drawable.button_simple);
+                                ans3.setBackgroundResource(R.drawable.button_simple);
 
                                 updateQuestion(i + 1);
                             }
@@ -174,33 +173,33 @@ public class QuestionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans3.setBackgroundColor(Color.GREEN);
+                        ans3.setBackgroundResource(R.drawable.button_correct);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 correct++;
-                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans3.setBackgroundResource(R.drawable.button_correct);
 
                                 updateQuestion(i + 1);
                             }
                         }, 1500);
                     } else {
                         //answer is wrong...
-                        ans3.setBackgroundColor(Color.RED);
+                        ans3.setBackgroundResource(R.drawable.button_wrong);
                         if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans2.setBackgroundColor(Color.GREEN);
+                            ans2.setBackgroundResource(R.drawable.button_correct);
                         } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundColor(Color.GREEN);
+                            ans1.setBackgroundResource(R.drawable.button_correct);
                         }
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans1.setBackgroundResource(R.drawable.button_simple);
+                                ans2.setBackgroundResource(R.drawable.button_simple);
+                                ans3.setBackgroundResource(R.drawable.button_simple);
 
                                 updateQuestion(i + 1);
                             }
