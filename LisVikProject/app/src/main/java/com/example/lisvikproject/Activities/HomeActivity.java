@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (id) {
                     case R.id.myInformation:
-                        Toast.makeText(HomeActivity.this, "Моя информация", Toast.LENGTH_SHORT).show();
+                        showAlertDialogOfInfoAboutChild();
                         break;
                     case R.id.myAchivements:
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
@@ -62,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(HomeActivity.this, "Выйти", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rules:
-                        Toast.makeText(HomeActivity.this, "Правила", Toast.LENGTH_SHORT).show();
                         showAlertDialogOfInfo();
                         break;
                     default:
@@ -96,7 +95,16 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Правила викторины");
-        builder.setMessage("nnfjf");
+        builder.setMessage("Привет! Хочешь заработать монетки? \n" +
+                "Тогда скорее отвечай на вопросы викторины \"ЛИСВИК\"!\n" +
+                "Все просто! \n" +
+                "Выбери свой возраст и интересную тему.\n" +
+                "Далее ответь на 10 вопросов. Но будь внимателен!\n" +
+                "На ответ дано всего лишь 60 секунд.\n" +
+                "За каждый провильный вопрос тебе начисляется одна монетка.\n" +
+                "Отвечай на вопросы правильно и зарабатывай как можно\n" +
+                "больше монеток, чтобы потратить их на развлечения!\n" +
+                "Скорее начинай и удачи!!!");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
@@ -117,16 +125,7 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Личная информация");
-        builder.setMessage("Привет! Хочешь заработать монетки? \n" +
-                "Тогда скорее отвечай на вопросы викторины \"ЛИСВИК\"!\n" +
-                "Все просто! \n" +
-                "Выбери свой возраст и интересную тему.\n" +
-                "Далее ответь на 10 вопросов. Но будь внимателен!\n" +
-                "На ответ дано всего лишь 60 секунд.\n" +
-                "За каждый провильный вопрос тебе начисляется одна монетка.\n" +
-                "Отвечай на вопросы правильно и зарабатывай как можно\n" +
-                "больше монеток, чтобы потратить их на развлечения!\n" +
-                "Скорее начинай и удачи!!!");
+        builder.setMessage("инфаааа");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
