@@ -47,9 +47,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                int id = menuItem.getItemId();
-
-                switch (id) {
+                switch (menuItem.getItemId()) {
                     case R.id.myInformation:
                         showAlertDialogOfInfoAboutChild();
                         break;
@@ -67,8 +65,6 @@ public class HomeActivity extends AppCompatActivity {
                         showAlertDialogOfInfo();
                         break;
                 }
-
-                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
