@@ -160,14 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("Age", age);
         user.put("Email", currentUser.getEmail());
 
-
-//        //////////////////////---------------------------------///////////////////////
-//        Intent intent=new Intent(getApplicationContext(), InformationActivity.class);
-//        intent.putExtra("email", currentUser.getEmail());
-//        ///////////////////////--------------------------------///////////////////////
-
-
-
         // создаем документ соответсвующий ID юзера и добавляем туда самого юзера
         db.collection("users").document(currentUser.getEmail()).set(user);
 

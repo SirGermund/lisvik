@@ -2,6 +2,7 @@ package com.example.lisvikproject.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,7 +57,8 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.myNews:
-                        Toast.makeText(HomeActivity.this, "Новости", Toast.LENGTH_SHORT).show();
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/pg/LisVikGame/events/?ref=page_internal"));
+                        startActivity(browserIntent);
                         break;
                     case R.id.exit:
                         Toast.makeText(HomeActivity.this, "Выйти", Toast.LENGTH_SHORT).show();
@@ -64,8 +66,6 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.rules:
                         showAlertDialogOfInfo();
                         break;
-                    default:
-                        Toast.makeText(HomeActivity.this, "Something goes wrong...", Toast.LENGTH_SHORT).show();
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
