@@ -27,6 +27,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
+
 public class QuestionActivity extends AppCompatActivity {
     Button ans1, ans2, ans3;
     TextView questionText, questionNumber, timer;
@@ -67,7 +69,15 @@ public class QuestionActivity extends AppCompatActivity {
 
         }else{
             //пытаюсь обратиться к вопросу из определенной категории и возраста
-            final DocumentReference quest=db.collection("quizzes").document(ageValue).collection(categoryValue).document(String.valueOf(total));
+            db = FirebaseFirestore.getInstance();
+            db.collection("quizzes").document(ageValue).collection(categoryValue).document(String.valueOf(total)).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Map<String, Object> d = documentSnapshot.getData();
+                            Question q = new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString(), d.get("0").toString());
+                        }
+                    });
         }
     }
 }

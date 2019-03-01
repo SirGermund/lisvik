@@ -35,7 +35,7 @@ public class ChooseAgeActivity extends AppCompatActivity{
                         break;
                     case R.id.above7:
                         Intent intent2=new Intent(getApplicationContext(), ChooseCategoryActivity.class);
-                        intent2.putExtra("age", "above7");
+                        intent2.putExtra("age", "above8");
                         startActivity(intent2);
                         break;
                     case R.id.default_activity_button:
