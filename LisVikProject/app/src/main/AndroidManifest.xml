@@ -12,8 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QuestionActivity"></activity>
-        <activity android:name=".Activities.RegisterActivity"></activity>
+        <activity android:name=".Activities.InformationActivity"></activity>
+        <activity android:name=".Activities.ChooseCategoryActivity" />
+        <activity android:name=".Activities.ChooseAgeActivity" />
+        <activity android:name=".Activities.QuestionActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>

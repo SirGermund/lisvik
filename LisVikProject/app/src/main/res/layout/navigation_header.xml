@@ -5,7 +5,7 @@
     android:gravity="center"
     android:background="@color/colorPrimaryDark">
 
-    //android picture in navigation bar
+    <!--android picture in navigation bar-->
 
     <ImageView
         android:layout_width="180dp"
