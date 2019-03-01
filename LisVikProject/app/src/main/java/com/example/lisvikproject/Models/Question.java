@@ -1,16 +1,26 @@
 package com.example.lisvikproject.Models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class Question {
     public String question;
     public String answer1, answer2, answer3, correctAnswer;
 
-    public Question(String question, String answer1, String answer2, String answer3, String correctAnswer)
+    public Question(String question, String answer1, String answer2, String answer3)
     {
-        this.question=question;
-        this.answer1=answer1;
-        this.answer2=answer2;
-        this.answer3=answer3;
-        this.correctAnswer=correctAnswer;
+        this.question = question;
+        this.correctAnswer = answer1;
+        List<String> list = new ArrayList<>();
+        list.add(answer1);
+        list.add(answer2);
+        list.add(answer3);
+        Collections.shuffle(list);
+        this.answer1 = list.get(0);
+        this.answer2 = list.get(1);
+        this.answer3 = list.get(2);
     }
 
     public Question(){}

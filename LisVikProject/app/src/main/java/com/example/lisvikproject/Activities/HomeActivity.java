@@ -2,6 +2,7 @@ package com.example.lisvikproject.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,19 +49,19 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.myInformation:
-                        Toast.makeText(HomeActivity.this, "Моя информация", Toast.LENGTH_SHORT).show();
+                        showAlertDialogOfInfoAboutChild();
                         break;
                     case R.id.myAchivements:
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.myNews:
-                        Toast.makeText(HomeActivity.this, "Новости", Toast.LENGTH_SHORT).show();
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/pg/LisVikGame/events/?ref=page_internal"));
+                        startActivity(browserIntent);
                         break;
                     case R.id.exit:
                         Toast.makeText(HomeActivity.this, "Выйти", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rules:
-                        Toast.makeText(HomeActivity.this, "Правила", Toast.LENGTH_SHORT).show();
                         showAlertDialogOfInfo();
                         break;
                 }
@@ -120,7 +121,7 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Личная информация");
-        builder.setMessage("nnfjf");
+        builder.setMessage("инфаааа");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {

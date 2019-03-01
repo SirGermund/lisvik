@@ -29,15 +29,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class QuestionActivity extends AppCompatActivity {
     Button ans1, ans2, ans3;
     TextView questionText, questionNumber, timer;
+    List<Question> qlist;
     int questNumberInt = 0, total = 0, correct = 0;
 
-    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,167 +64,152 @@ public class QuestionActivity extends AppCompatActivity {
         //получить выбранную категорию
         String categoryValue = intent.getStringExtra("category");
 
-        //обновление вопроса
-        updateQuestion(ageValue, categoryValue);
+        // чтение вопросов
+        qlist = new ArrayList<>();
+        readQuestions(ageValue, categoryValue);
     }
 
-    private void updateQuestion(final String ageValue, final String categoryValue) {
+    private void updateQuestion(final int i) {
         //номер вопроса(начиная с 1)
+        while (qlist.size() < i + 1); // если вдруг залагает чтение из бд
         total++;
         if (total > 10) {
             //end of the test
             showAlertDialogOfInfo();
         } else {
             //пытаюсь обратиться к вопросу из определенной категории и возраста
-            db = FirebaseFirestore.getInstance();
-            db.collection("quizzes").document(ageValue).collection(categoryValue).document(String.valueOf(total)).get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Map<String, Object> d = documentSnapshot.getData();
-                            final Question question = new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString(), d.get("0").toString());
-
-                            ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                            ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                            ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
-
-                            ans1.setText(question.getAnswer1());
-                            ans2.setText(question.getAnswer2());
-                            ans3.setText(question.getAnswer3());
-                            questionText.setText(question.getQuestion());
-                            questionNumber.setText("Вопрос номер "+total);
 
 
-                            ans1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if(ans1.getText().toString().equals(question.getCorrectAnswer()))
-                                    {
-                                        ans1.setBackgroundColor(Color.GREEN);
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                correct++;
-                                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+            ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+            ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+            ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
 
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        }, 1500);
-                                    }else{
-                                        //answer is wrong...
-                                        ans1.setBackgroundColor(Color.RED);
-                                        if(ans2.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans2.setBackgroundColor(Color.GREEN);
-                                        }else if(ans3.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans3.setBackgroundColor(Color.GREEN);
-                                        }
-
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
-
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        },1500);
-                                    }
-                                }
-                            });
-
-                            ans2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if(ans2.getText().toString().equals(question.getCorrectAnswer()))
-                                    {
-                                        ans2.setBackgroundColor(Color.GREEN);
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                correct++;
-                                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        }, 1500);
-                                    }else{
-                                        //answer is wrong...
-                                        ans2.setBackgroundColor(Color.RED);
-                                        if(ans1.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans1.setBackgroundColor(Color.GREEN);
-                                        }else if(ans1.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans1.setBackgroundColor(Color.GREEN);
-                                        }
-
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
-
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        },1500);
-                                    }
-                                }
-                            });
+            ans1.setText(qlist.get(i).getAnswer1());
+            ans2.setText(qlist.get(i).getAnswer2());
+            ans3.setText(qlist.get(i).getAnswer3());
+            questionText.setText(qlist.get(i).getQuestion());
+            questionNumber.setText("Вопрос номер " + total);
 
 
-                            ans3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if(ans3.getText().toString().equals(question.getCorrectAnswer()))
-                                    {
-                                        ans3.setBackgroundColor(Color.GREEN);
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                correct++;
-                                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+            ans1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                        ans1.setBackgroundColor(Color.GREEN);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                correct++;
+                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
 
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        }, 1500);
-                                    }else{
-                                        //answer is wrong...
-                                        ans3.setBackgroundColor(Color.RED);
-                                        if(ans2.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans2.setBackgroundColor(Color.GREEN);
-                                        }else if(ans1.getText().toString().equals(question.getCorrectAnswer()))
-                                        {
-                                            ans1.setBackgroundColor(Color.GREEN);
-                                        }
-
-                                        Handler handler=new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
-                                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
-
-                                                updateQuestion(ageValue, categoryValue);
-                                            }
-                                        },1500);
-                                    }
-                                }
-                            });
-
-
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    } else {
+                        //answer is wrong...
+                        ans1.setBackgroundColor(Color.RED);
+                        if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans2.setBackgroundColor(Color.GREEN);
+                        } else if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans3.setBackgroundColor(Color.GREEN);
                         }
-                    });
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    }
+                }
+            });
+
+            ans2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                        ans2.setBackgroundColor(Color.GREEN);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                correct++;
+                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    } else {
+                        //answer is wrong...
+                        ans2.setBackgroundColor(Color.RED);
+                        if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans1.setBackgroundColor(Color.GREEN);
+                        } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans1.setBackgroundColor(Color.GREEN);
+                        }
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    }
+                }
+            });
+
+
+            ans3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                        ans3.setBackgroundColor(Color.GREEN);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                correct++;
+                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    } else {
+                        //answer is wrong...
+                        ans3.setBackgroundColor(Color.RED);
+                        if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans2.setBackgroundColor(Color.GREEN);
+                        } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                            ans1.setBackgroundColor(Color.GREEN);
+                        }
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans2.setBackgroundColor(Color.parseColor("#03A9F4"));
+                                ans3.setBackgroundColor(Color.parseColor("#03A9F4"));
+
+                                updateQuestion(i + 1);
+                            }
+                        }, 1500);
+                    }
+                }
+            });
+
+
         }
     }
 
@@ -246,6 +237,33 @@ public class QuestionActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+    public void readQuestions(String age, String subject)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("quizzes")
+                .document(age)
+                .collection(subject)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        Log.d("success", "  reading documents");
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        Collections.shuffle(list);
+                        Map<String, Object> d;
+                        for (int i = 0; i < 10; ++i) {
+                            d = list.get(i).getData();
+                            qlist.add(new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString()));
+                        }
+                        //обновление вопроса
+                        updateQuestion(0);
+                    }
+                });
+
+
+
     public void reverseTimer(final int seconds, final TextView tv)
     {
         new CountDownTimer( seconds* 1000+1000, 1000)
@@ -263,5 +281,6 @@ public class QuestionActivity extends AppCompatActivity {
                 tv.setText("Время истекло!");
             }
         }.start();
+
     }
 }
