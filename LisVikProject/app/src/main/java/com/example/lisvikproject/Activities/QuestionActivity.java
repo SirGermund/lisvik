@@ -238,8 +238,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
-    public void readQuestions(String age, String subject)
-    {
+    public void readQuestions(String age, String subject) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("quizzes")
                 .document(age)
@@ -261,6 +260,7 @@ public class QuestionActivity extends AppCompatActivity {
                         updateQuestion(0);
                     }
                 });
+    }
 
 
 
