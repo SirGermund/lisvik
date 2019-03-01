@@ -17,10 +17,6 @@ import android.widget.Toast;
 
 import com.example.lisvikproject.R;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -87,15 +83,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-//чтобы при нажатии на назад на панели экрана закрывалась боковая панель
-//    @Override
-//    public void onBackPressed() {
-//        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }else{
-//            super.onBackPressed();
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -109,6 +96,27 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Правила викторины");
+        builder.setMessage("nnfjf");
+        builder.setCancelable(true);
+        builder.setNeutralButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * To show to user the info about the test
+     */
+    public void showAlertDialogOfInfoAboutChild(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Личная информация");
         builder.setMessage("nnfjf");
         builder.setCancelable(true);
         builder.setNeutralButton(android.R.string.ok,

@@ -3,6 +3,7 @@ package com.example.lisvikproject.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -243,5 +244,24 @@ public class QuestionActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void reverseTimer(final int seconds, final TextView tv)
+    {
+        new CountDownTimer( seconds* 1000+1000, 1000)
+        {
+            public void onTick(long l)
+            {
+                int secondsNew=(int)(l/1000);
+                int minutes=secondsNew/60;
+                secondsNew=secondsNew%60;
+                tv.setText(String.format("%02d", minutes)+":"+String.format("%02d", secondsNew));
+            }
+
+            public void onFinish()
+            {
+                tv.setText("Время истекло!");
+            }
+        }.start();
     }
 }
