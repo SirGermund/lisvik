@@ -43,7 +43,6 @@ public class QuestionActivity extends AppCompatActivity {
     List<Question> qlist;
     int questNumberInt = 0, total = 0, correct = 0;
 
-    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +79,6 @@ public class QuestionActivity extends AppCompatActivity {
             showAlertDialogOfInfo();
         } else {
             //пытаюсь обратиться к вопросу из определенной категории и возраста
-            db = FirebaseFirestore.getInstance();
 
 
             ans1.setBackgroundColor(Color.parseColor("#03A9F4"));
@@ -242,30 +240,27 @@ public class QuestionActivity extends AppCompatActivity {
 
     public void readQuestions(String age, String subject)
     {
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("quizzes")
                 .document(age)
                 .collection(subject)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            Log.d("success", "  reading documents");
-                            List<DocumentSnapshot> list = task.getResult().getDocuments();
-                            Collections.shuffle(list);
-                            Map<String, Object> d;
-                            for (int i = 0; i < 10; ++i)
-                            {
-                                d = list.get(i).getData();
-                                qlist.add(new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString()));
-                            }
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        Log.d("success", "  reading documents");
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        Collections.shuffle(list);
+                        Map<String, Object> d;
+                        for (int i = 0; i < 10; ++i) {
+                            d = list.get(i).getData();
+                            qlist.add(new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString()));
                         }
-                        else
-                            Log.d("fail", "   error");
+
                     }
                 });
+
 
     }
 }
