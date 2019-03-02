@@ -1,14 +1,9 @@
 package com.example.lisvikproject.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-
-import com.example.lisvikproject.Models.Question;
 import com.example.lisvikproject.Models.UserInfo;
 import com.example.lisvikproject.R;
 import com.google.android.gms.tasks.OnSuccessListener;
