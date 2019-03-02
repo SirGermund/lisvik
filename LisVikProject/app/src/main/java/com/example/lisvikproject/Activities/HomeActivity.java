@@ -52,7 +52,10 @@ public class HomeActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.myAchivements:
                         Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getApplicationContext(), ScoresActivity.class);
+                        Intent currentIntent = getIntent();
+                        Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+                        intent.putExtra("category",currentIntent.getStringExtra("category"));
+                        intent.putExtra("score", currentIntent.getStringExtra("score"));
                         startActivity(intent);
                         break;
                     case R.id.myNews:

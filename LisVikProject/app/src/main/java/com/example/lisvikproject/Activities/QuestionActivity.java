@@ -81,8 +81,7 @@ public class QuestionActivity extends AppCompatActivity {
         ifTimeIsFinished++;
         if (total > 10) {
             //end of the test
-            sendData(categoryValue, String.valueOf(correct));
-            showAlertDialogOfResults();
+            showAlertDialogOfResults(categoryValue, String.valueOf(correct));
         } else {
 
             ans1.setEnabled(true);
@@ -236,7 +235,7 @@ public class QuestionActivity extends AppCompatActivity {
     /**
      * To show the results of the test
      */
-    public void showAlertDialogOfResults(){
+    public void showAlertDialogOfResults(final String  category,final String score){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Результаты викторины!");
@@ -247,8 +246,10 @@ public class QuestionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        Intent toTheHomePage=new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(toTheHomePage);
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra("category", category);
+                        intent.putExtra("score", score);
+                        startActivity(intent);
                         finish();
                     }
                 });
@@ -300,12 +301,5 @@ public class QuestionActivity extends AppCompatActivity {
             }
         }.start();
 
-    }
-
-    public void sendData(String category, String score)
-    {
-        Intent intent=new Intent(getApplicationContext(), ScoresActivity.class);
-        intent.putExtra("category", category);
-        intent.putExtra("score", score);
     }
 }
