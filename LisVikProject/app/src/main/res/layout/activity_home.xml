@@ -19,13 +19,13 @@
             android:id="@+id/toTest"
             android:layout_width="263dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="90dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="270dp"
             android:background="@drawable/button_simple"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:text="К викторине!"
-            android:textSize="30sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
