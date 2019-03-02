@@ -50,4 +50,11 @@ public class ChooseAgeActivity extends AppCompatActivity{
         under7.setOnClickListener(onClickListener);
         above7.setOnClickListener(onClickListener);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+    }
 }
