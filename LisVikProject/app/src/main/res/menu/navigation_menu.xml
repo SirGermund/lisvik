@@ -15,9 +15,4 @@
         android:title="Правила">
     </item>
 
-    <item
-        android:id="@+id/exit"
-        android:title="Выйти">
-    </item>
-
 </menu>
