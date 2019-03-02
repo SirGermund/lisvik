@@ -15,7 +15,7 @@ import com.example.lisvikproject.R;
 public class ChooseCategoryActivity extends AppCompatActivity {
 
     TextView chooseCategory;
-    Button astronomy, biology, geography, history, literature, math_phys, movies, music, tales, tech, randomQuestions;
+    Button astronomy, biology, geography, history, literature, math_phys, movies, music, tales, tech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,6 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         music=(Button)findViewById(R.id.Music);
         tales=(Button)findViewById(R.id.Tales);
         tech=(Button)findViewById(R.id.Tech);
-        randomQuestions=(Button)findViewById(R.id.Random);
 
 
         Intent intent=getIntent();
@@ -106,15 +105,6 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                         intent10.putExtra("age", ageValue);
                         startActivity(intent10);
                         break;
-                    case R.id.Random:
-                        Intent intent11=new Intent(getApplicationContext(), QuestionActivity.class);
-                        intent11.putExtra("category", "Random");
-                        intent11.putExtra("age", ageValue);
-                        startActivity(intent11);
-                        break;
-                    case R.id.default_activity_button:
-                        Toast.makeText(ChooseCategoryActivity.this, "Something goes wrong!", Toast.LENGTH_SHORT).show();
-                        break;
                 }
             }
         };
@@ -129,7 +119,6 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         music.setOnClickListener(onClickListener);
         tales.setOnClickListener(onClickListener);
         tech.setOnClickListener(onClickListener);
-        randomQuestions.setOnClickListener(onClickListener);
 
     }
 }

@@ -209,20 +209,4 @@
         app:layout_constraintStart_toEndOf="@id/Tech"
         app:layout_constraintTop_toBottomOf="@+id/Tales" />
 
-    <Button
-        android:id="@+id/Random"
-        android:layout_width="156dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/button_simple"
-        android:text="Из разных тем"
-        android:textColor="#FFFFFF"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Math_Phys" />
 </android.support.constraint.ConstraintLayout>
