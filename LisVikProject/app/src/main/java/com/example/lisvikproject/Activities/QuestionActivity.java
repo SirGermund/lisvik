@@ -42,7 +42,7 @@ public class QuestionActivity extends AppCompatActivity {
     Button ans1, ans2, ans3;
     TextView questionText, questionNumber, timer;
     List<Question> qlist;
-    int questNumberInt = 0, total = 0, correct = 0;
+    int questNumberInt = 0, total = 0, correct = 0, ifTimeIsFinished=0;
 
 
     @Override
@@ -73,6 +73,7 @@ public class QuestionActivity extends AppCompatActivity {
         //номер вопроса(начиная с 1)
         while (qlist.size() < i + 1); // если вдруг залагает чтение из бд
         total++;
+        ifTimeIsFinished++;
         if (total > 10) {
             //end of the test
             showAlertDialogOfInfo();
@@ -89,6 +90,7 @@ public class QuestionActivity extends AppCompatActivity {
             ans3.setText(qlist.get(i).getAnswer3());
             questionText.setText(qlist.get(i).getQuestion());
             questionNumber.setText("Вопрос номер " + total);
+            reverseTimer(timer);
 
 
             ans1.setOnClickListener(new View.OnClickListener() {
@@ -264,21 +266,19 @@ public class QuestionActivity extends AppCompatActivity {
 
 
 
-    public void reverseTimer(final int seconds, final TextView tv)
+    public void reverseTimer(final TextView tv)
     {
-        new CountDownTimer( seconds* 1000+1000, 1000)
+        new CountDownTimer( 60000, 1000)
         {
             public void onTick(long l)
             {
-                int secondsNew=(int)(l/1000);
-                int minutes=secondsNew/60;
-                secondsNew=secondsNew%60;
-                tv.setText(String.format("%02d", minutes)+":"+String.format("%02d", secondsNew));
+                tv.setText(""+l/1000);
             }
 
             public void onFinish()
             {
                 tv.setText("Время истекло!");
+                updateQuestion(ifTimeIsFinished);
             }
         }.start();
 
