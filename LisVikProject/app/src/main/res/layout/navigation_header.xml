@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:background="@color/colorPrimaryDark">
+    android:background="#FF7700">
 
     <!--android picture in navigation bar-->
 
     <ImageView
-        android:layout_width="180dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="252dp"
+        android:layout_height="213dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/ic_android_black_24dp"/>
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/vik_black" />
 
 </LinearLayout>
