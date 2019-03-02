@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_field"
     android:id="@+id/drawerLayout">
   
     <RelativeLayout
@@ -16,12 +17,15 @@
 
         <Button
             android:id="@+id/toTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="270dp"
+            android:layout_width="263dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="90dp"
+            android:layout_marginTop="270dp"
+            android:background="@drawable/button_simple"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             android:text="К викторине!"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
