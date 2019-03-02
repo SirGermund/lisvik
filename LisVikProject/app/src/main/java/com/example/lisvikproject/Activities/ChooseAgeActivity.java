@@ -1,6 +1,9 @@
 package com.example.lisvikproject.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +21,8 @@ public class ChooseAgeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_age);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         above7=(Button)findViewById(R.id.above7);
         under7=(Button)findViewById(R.id.under7);
@@ -47,6 +52,4 @@ public class ChooseAgeActivity extends AppCompatActivity{
         under7.setOnClickListener(onClickListener);
         above7.setOnClickListener(onClickListener);
     }
-
-
 }

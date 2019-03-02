@@ -1,6 +1,9 @@
 package com.example.lisvikproject.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +23,8 @@ public class ChooseCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         chooseCategory=(TextView)findViewById(R.id.chooseCategory);
         astronomy=(Button)findViewById(R.id.Astronomy);

@@ -6,12 +6,14 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +46,15 @@ public class QuestionActivity extends AppCompatActivity {
     List<Question> qlist;
     int questNumberInt = 0, total = 0, correct = 0, ifTimeIsFinished=0;
 
+    String ageValue, categoryValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         questionNumber = (TextView) findViewById(R.id.questionNumber);
         questionText = (TextView) findViewById(R.id.questionText);
@@ -60,9 +66,9 @@ public class QuestionActivity extends AppCompatActivity {
         //чтобы получить результаты выбора с предыдущих двух активити
         Intent intent = getIntent();
         //получить выбранный возраст
-        String ageValue = intent.getStringExtra("age");
+        ageValue = intent.getStringExtra("age");
         //получить выбранную категорию
-        String categoryValue = intent.getStringExtra("category");
+        categoryValue = intent.getStringExtra("category");
 
         // чтение вопросов
         qlist = new ArrayList<>();
@@ -71,13 +77,18 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void updateQuestion(final int i) {
         //номер вопроса(начиная с 1)
-        while (qlist.size() < i + 1); // если вдруг залагает чтение из бд
         total++;
         ifTimeIsFinished++;
         if (total > 10) {
             //end of the test
-            showAlertDialogOfInfo();
+            sendData(categoryValue, String.valueOf(correct));
+            showAlertDialogOfResults();
         } else {
+
+            ans1.setEnabled(true);
+            ans2.setEnabled(true);
+            ans3.setEnabled(true);
+
             //пытаюсь обратиться к вопросу из определенной категории и возраста
 
             ans1.setText(qlist.get(i).getAnswer1());
@@ -85,139 +96,147 @@ public class QuestionActivity extends AppCompatActivity {
             ans3.setText(qlist.get(i).getAnswer3());
             questionText.setText(qlist.get(i).getQuestion());
             questionNumber.setText("Вопрос номер " + total);
-            reverseTimer(timer);
 
             ans1.setBackgroundResource(R.drawable.button_simple);
             ans2.setBackgroundResource(R.drawable.button_simple);
             ans3.setBackgroundResource(R.drawable.button_simple);
 
-
-            ans1.setOnClickListener(new View.OnClickListener() {
+            View.OnClickListener onClickListener=new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans1.setBackgroundResource(R.drawable.button_correct);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                correct++;
+                    switch (v.getId())
+                    {
+                        case R.id.answer1:
+                            ans1.setEnabled(false);
+                            ans2.setEnabled(false);
+                            ans3.setEnabled(false);
+
+                            if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
                                 ans1.setBackgroundResource(R.drawable.button_correct);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        correct++;
+                                        ans1.setBackgroundResource(R.drawable.button_correct);
 
-                                updateQuestion(i + 1);
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
+                            } else {
+                                //answer is wrong...
+                                ans1.setBackgroundResource(R.drawable.button_wrong);
+                                if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans2.setBackgroundResource(R.drawable.button_correct);
+                                } else if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans3.setBackgroundResource(R.drawable.button_correct);
+                                }
+
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        ans1.setBackgroundResource(R.drawable.button_simple);
+                                        ans2.setBackgroundResource(R.drawable.button_simple);
+                                        ans3.setBackgroundResource(R.drawable.button_simple);
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
                             }
-                        }, 1500);
-                    } else {
-                        //answer is wrong...
-                        ans1.setBackgroundResource(R.drawable.button_wrong);
-                        if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans2.setBackgroundResource(R.drawable.button_correct);
-                        } else if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans3.setBackgroundResource(R.drawable.button_correct);
-                        }
+                            break;
+                        case R.id.answer2:
+                            ans1.setEnabled(false);
+                            ans2.setEnabled(false);
+                            ans3.setEnabled(false);
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                ans1.setBackgroundResource(R.drawable.button_simple);
-                                ans2.setBackgroundResource(R.drawable.button_simple);
-                                ans3.setBackgroundResource(R.drawable.button_simple);
-                                updateQuestion(i + 1);
-                            }
-                        }, 1500);
-                    }
-                }
-            });
-
-            ans2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans2.setBackgroundResource(R.drawable.button_correct);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                correct++;
+                            if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
                                 ans2.setBackgroundResource(R.drawable.button_correct);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        correct++;
+                                        ans2.setBackgroundResource(R.drawable.button_correct);
 
-                                updateQuestion(i + 1);
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
+                            } else {
+                                //answer is wrong...
+                                ans2.setBackgroundResource(R.drawable.button_wrong);
+                                if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans1.setBackgroundResource(R.drawable.button_correct);
+                                } else if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans3.setBackgroundResource(R.drawable.button_correct);
+                                }
+
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ans1.setBackgroundResource(R.drawable.button_simple);
+                                        ans2.setBackgroundResource(R.drawable.button_simple);
+                                        ans3.setBackgroundResource(R.drawable.button_simple);
+
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
                             }
-                        }, 1500);
-                    } else {
-                        //answer is wrong...
-                        ans2.setBackgroundResource(R.drawable.button_wrong);
-                        if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundResource(R.drawable.button_correct);
-                        } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundResource(R.drawable.button_correct);
-                        }
+                            break;
+                        case R.id.answer3:
+                            ans1.setEnabled(false);
+                            ans2.setEnabled(false);
+                            ans3.setEnabled(false);
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ans1.setBackgroundResource(R.drawable.button_simple);
-                                ans2.setBackgroundResource(R.drawable.button_simple);
-                                ans3.setBackgroundResource(R.drawable.button_simple);
-
-                                updateQuestion(i + 1);
-                            }
-                        }, 1500);
-                    }
-                }
-            });
-
-
-            ans3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                        ans3.setBackgroundResource(R.drawable.button_correct);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                correct++;
+                            if (ans3.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
                                 ans3.setBackgroundResource(R.drawable.button_correct);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        correct++;
+                                        ans3.setBackgroundResource(R.drawable.button_correct);
 
-                                updateQuestion(i + 1);
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
+                            } else {
+                                //answer is wrong...
+                                ans3.setBackgroundResource(R.drawable.button_wrong);
+                                if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans2.setBackgroundResource(R.drawable.button_correct);
+                                } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
+                                    ans1.setBackgroundResource(R.drawable.button_correct);
+                                }
+
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ans1.setBackgroundResource(R.drawable.button_simple);
+                                        ans2.setBackgroundResource(R.drawable.button_simple);
+                                        ans3.setBackgroundResource(R.drawable.button_simple);
+
+                                        updateQuestion(i + 1);
+                                    }
+                                }, 1500);
                             }
-                        }, 1500);
-                    } else {
-                        //answer is wrong...
-                        ans3.setBackgroundResource(R.drawable.button_wrong);
-                        if (ans2.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans2.setBackgroundResource(R.drawable.button_correct);
-                        } else if (ans1.getText().toString().equals(qlist.get(i).getCorrectAnswer())) {
-                            ans1.setBackgroundResource(R.drawable.button_correct);
-                        }
-
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ans1.setBackgroundResource(R.drawable.button_simple);
-                                ans2.setBackgroundResource(R.drawable.button_simple);
-                                ans3.setBackgroundResource(R.drawable.button_simple);
-
-                                updateQuestion(i + 1);
-                            }
-                        }, 1500);
+                            break;
                     }
                 }
-            });
+            };
 
-
+            ans1.setOnClickListener(onClickListener);
+            ans2.setOnClickListener(onClickListener);
+            ans3.setOnClickListener(onClickListener);
         }
     }
 
     /**
      * To show the results of the test
      */
-    public void showAlertDialogOfInfo(){
+    public void showAlertDialogOfResults(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Результаты викторины!");
@@ -281,5 +300,12 @@ public class QuestionActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public void sendData(String category, String score)
+    {
+        Intent intent=new Intent(getApplicationContext(), ScoresActivity.class);
+        intent.putExtra("category", category);
+        intent.putExtra("score", score);
     }
 }
