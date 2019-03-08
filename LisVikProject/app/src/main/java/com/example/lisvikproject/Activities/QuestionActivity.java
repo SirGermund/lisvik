@@ -79,7 +79,7 @@ public class QuestionActivity extends AppCompatActivity {
             ans2.setText(qlist.get(i).getAnswer2());
             ans3.setText(qlist.get(i).getAnswer3());
             questionText.setText(qlist.get(i).getQuestion());
-            questionNumber.setText("Вопрос номер " + total);
+            questionNumber.setText("Вопрос " + total);
 
             ans1.setBackgroundResource(R.drawable.button_simple);
             ans2.setBackgroundResource(R.drawable.button_simple);
@@ -231,7 +231,7 @@ public class QuestionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), ChooseAgeActivity.class);
                         intent.putExtra("category", category);
                         intent.putExtra("score", score);
                         startActivity(intent);

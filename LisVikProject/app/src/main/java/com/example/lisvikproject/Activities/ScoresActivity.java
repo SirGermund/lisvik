@@ -30,7 +30,8 @@ public class ScoresActivity extends AppCompatActivity {
         String category = intent.getStringExtra("category");
         String score = intent.getStringExtra("score");
 
-        toChange.append("\n"+category+":   "+score+"/10");
+        if(category!=null&&score!=null)
+            toChange.append("\n"+category+":   "+score+"/10");
 
     }
 }

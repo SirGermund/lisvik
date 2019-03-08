@@ -51,18 +51,21 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                         intent1.putExtra("category", "Astronomy");
                         intent1.putExtra("age", ageValue);
                         startActivity(intent1);
+                        finish();
                         break;
                     case R.id.Biology:
                         Intent intent2=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent2.putExtra("category", "Biology");
                         intent2.putExtra("age", ageValue);
                         startActivity(intent2);
+                        finish();
                         break;
                     case R.id.History:
                         Intent intent3=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent3.putExtra("category", "History");
                         intent3.putExtra("age", ageValue);
                         startActivity(intent3);
+                        finish();
                         break;
                     case R.id.Literature:
                         Intent intent4=new Intent(getApplicationContext(), QuestionActivity.class);
@@ -74,36 +77,42 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                         Intent intent5=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent5.putExtra("category", "Math_Phys");
                         intent5.putExtra("age", ageValue);
+                        finish();
                         break;
                     case R.id.Movies:
                         Intent intent6=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent6.putExtra("category", "Movies");
                         intent6.putExtra("age", ageValue);
                         startActivity(intent6);
+                        finish();
                         break;
                     case R.id.Music:
                         Intent intent7=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent7.putExtra("category", "Music");
                         intent7.putExtra("age", ageValue);
                         startActivity(intent7);
+                        finish();
                         break;
                     case R.id.Tales:
                         Intent intent8=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent8.putExtra("category", "Tales");
                         intent8.putExtra("age", ageValue);
                         startActivity(intent8);
+                        finish();
                         break;
                     case R.id.Geography:
                         Intent intent9=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent9.putExtra("category", "Geography");
                         intent9.putExtra("age", ageValue);
                         startActivity(intent9);
+                        finish();
                         break;
                     case R.id.Tech:
                         Intent intent10=new Intent(getApplicationContext(), QuestionActivity.class);
                         intent10.putExtra("category", "Tech");
                         intent10.putExtra("age", ageValue);
                         startActivity(intent10);
+                        finish();
                         break;
                 }
             }
@@ -120,5 +129,13 @@ public class ChooseCategoryActivity extends AppCompatActivity {
         tales.setOnClickListener(onClickListener);
         tech.setOnClickListener(onClickListener);
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent(getApplicationContext(), ChooseAgeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
