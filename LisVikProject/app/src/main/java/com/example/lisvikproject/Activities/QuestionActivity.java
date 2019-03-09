@@ -1,5 +1,6 @@
 package com.example.lisvikproject.Activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -48,6 +49,13 @@ public class QuestionActivity extends AppCompatActivity {
         ans2 = (Button) findViewById(R.id.answer2);
         ans3 = (Button) findViewById(R.id.answer3);
 
+        ans1.setVisibility(View.GONE);
+        ans2.setVisibility(View.GONE);
+        ans3.setVisibility(View.GONE);
+
+
+        startLoading();
+
         //чтобы получить результаты выбора с предыдущих двух активити
         Intent intent = getIntent();
         //получить выбранный возраст
@@ -60,6 +68,29 @@ public class QuestionActivity extends AppCompatActivity {
         readQuestions(ageValue, categoryValue);
     }
 
+    /**
+     * time to concentrate
+     */
+    private void startLoading() {
+        final ProgressDialog progresRing = ProgressDialog.show(QuestionActivity.this, "Приготовься!", "Игра начинается...", true);
+        progresRing.setCancelable(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1800);
+                } catch (Exception e) {
+
+                }
+                progresRing.dismiss();
+            }
+        }).start();
+    }
+
+    /**
+     * Update question information after answering
+     * @param i - number of question
+     */
     private void updateQuestion(final int i) {
         //номер вопроса(начиная с 1)
         total++;
@@ -243,7 +274,11 @@ public class QuestionActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
+    /**
+     * Read question from database
+     * @param age  -age value
+     * @param subject - subject value
+     */
     public void readQuestions(String age, String subject) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("quizzes")
@@ -263,11 +298,40 @@ public class QuestionActivity extends AppCompatActivity {
                             qlist.add(new Question(d.get("Question").toString(), d.get("0").toString(), d.get("1").toString(), d.get("2").toString()));
                         }
                         //обновление вопроса
+                        ans1.setVisibility(View.VISIBLE);
+                        ans2.setVisibility(View.VISIBLE);
+                        ans3.setVisibility(View.VISIBLE);
                         updateQuestion(0);
                     }
                 });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ты действительно хочешь прервать викторину?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Да",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("Отмена",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
 
     public void reverseTimer(final TextView tv)
