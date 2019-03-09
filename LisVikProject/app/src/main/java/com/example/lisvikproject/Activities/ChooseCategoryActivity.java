@@ -70,6 +70,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                         intent4.putExtra("category", "Literature");
                         intent4.putExtra("age", ageValue);
                         startActivity(intent4);
+                        finish();
                         break;
                     case R.id.Math_Phys:
                         Intent intent5=new Intent(getApplicationContext(), QuestionActivity.class);
