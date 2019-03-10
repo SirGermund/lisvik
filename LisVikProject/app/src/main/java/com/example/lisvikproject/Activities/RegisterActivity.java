@@ -2,6 +2,7 @@ package com.example.lisvikproject.Activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //ini views
         userEmail=(EditText)findViewById(R.id.regEmail);

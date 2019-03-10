@@ -3,6 +3,7 @@ package com.example.lisvikproject.Activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -41,6 +42,7 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         questionNumber = (TextView) findViewById(R.id.questionNumber);
         questionText = (TextView) findViewById(R.id.questionText);

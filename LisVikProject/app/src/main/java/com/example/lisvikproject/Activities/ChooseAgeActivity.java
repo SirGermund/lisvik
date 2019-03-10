@@ -1,6 +1,7 @@
 package com.example.lisvikproject.Activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class ChooseAgeActivity extends AppCompatActivity{
         setContentView(R.layout.activity_choose_age);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         above7=(Button)findViewById(R.id.above7);
         under7=(Button)findViewById(R.id.under7);

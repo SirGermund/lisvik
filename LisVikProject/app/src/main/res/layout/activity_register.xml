@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_foxies"
-    tools:context=".Activities.RegisterActivity">
+    tools:context=".Activities.RegisterActivity"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/regEmail"

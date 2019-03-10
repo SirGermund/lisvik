@@ -1,6 +1,7 @@
 package com.example.lisvikproject.Activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class InformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
         Intent intent=getIntent();

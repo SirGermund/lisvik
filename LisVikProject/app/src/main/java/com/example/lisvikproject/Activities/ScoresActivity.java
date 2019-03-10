@@ -1,6 +1,7 @@
 package com.example.lisvikproject.Activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class ScoresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scores);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         achievements=(TextView)findViewById(R.id.achievementsText);
         scores=(TextView)findViewById(R.id.scoresRes);
