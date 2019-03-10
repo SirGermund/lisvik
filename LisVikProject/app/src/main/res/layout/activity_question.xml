@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_sea"
-    tools:context=".Activities.QuestionActivity"
-    android:screenOrientation="portrait">
+    tools:context=".Activities.QuestionActivity">
 
     <TextView
         android:id="@+id/questionNumber"

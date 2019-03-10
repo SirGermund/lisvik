@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_foxies"
-    tools:context=".Activities.LoginActivity"
-    android:screenOrientation="portrait">
+    tools:context=".Activities.LoginActivity">
 
     <EditText
         android:id="@+id/loginMail"
