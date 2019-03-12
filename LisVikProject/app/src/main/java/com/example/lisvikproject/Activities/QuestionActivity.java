@@ -18,12 +18,14 @@ import android.widget.TextView;
 import com.example.lisvikproject.Models.Question;
 import com.example.lisvikproject.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,6 +101,7 @@ public class QuestionActivity extends AppCompatActivity {
         ifTimeIsFinished++;
         if (total > 10) {
             //end of the test
+            addScore();
             showAlertDialogOfResults(categoryValue, String.valueOf(correct));
         } else {
 
@@ -352,5 +355,75 @@ public class QuestionActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public void addScore()
+    {
+        FirebaseAuth myAuth = FirebaseAuth.getInstance();
+        final String email = myAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                .document(email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = new HashMap<>();
+                        int score;
+                        if (documentSnapshot.getData().containsKey("Score"))
+                            score = Integer.parseInt(documentSnapshot.getData().get("Score").toString()) + correct;
+                        else
+                            score = correct;
+                        map.put("Score", String.valueOf(score));
+                        for (int i = 0; i < 5; ++i)
+                            map.put(String.valueOf(i), (String)documentSnapshot.getData().get(String.valueOf(i)));
+                        map.remove("4");
+                        for (int i = 3; i >= 0; --i)
+                        {
+                            map.put(String.valueOf(i + 1), map.get(String.valueOf(i)));
+                            map.remove(String.valueOf(i));
+                        }
+                        String age = ageValue.equals("under7")?"7-":"8+";
+                        String subject = getSubject();
+                        map.put("0", "" + age + " " + subject + " " + String.valueOf(correct) + "/10");
+                        updateScore(email, map);
+                    }
+                });
+    }
+
+    public void updateScore(String email, Map<String, Object> map)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users")
+                .document(email)
+                .update(map);
+    }
+
+    public String getSubject()
+    {
+        switch (categoryValue)
+        {
+            case "Astronomy":
+                return "Астрономия";
+            case "Biology":
+                return "Биология";
+            case "History":
+                return "История";
+            case "Literature":
+                return "Литература";
+            case "Math_Phys":
+                return "Математика/Физика";
+            case "Movies":
+                return "Кино/Мультфильмы";
+            case "Music":
+                return "Музыка";
+            case "Tales":
+                return "Сказки";
+            case "Geography":
+                return "География";
+            case "Tech":
+                return "Техника/Компьютеры";
+        }
+        return "Unknown";
     }
 }
