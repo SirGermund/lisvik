@@ -1,12 +1,16 @@
 package com.example.lisvikproject.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lisvikproject.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,16 +18,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ScoresActivity extends AppCompatActivity {
 
-    TextView achievements, scores, toChange;
-    ScrollView scrollView;
+    int countOfNull=0;
+    TextView achievements, scores, t1, t2, t3, t4, t5;
     String score;
-    List<String> last = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email = mAuth.getCurrentUser().getEmail();
@@ -38,23 +43,38 @@ public class ScoresActivity extends AppCompatActivity {
 
         achievements=(TextView)findViewById(R.id.achievementsText);
         scores=(TextView)findViewById(R.id.scoresRes);
-        toChange=(TextView)findViewById(R.id.textToChange);
-        scrollView=(ScrollView)findViewById(R.id.scrollView);
+        t1=findViewById(R.id.t1);
+        t2=findViewById(R.id.t2);
+        t3=findViewById(R.id.t3);
+        t4=findViewById(R.id.t4);
+        t5=findViewById(R.id.t5);
+
+        startLoading();
 
         loadScore(); // если есть счет то он лежит в score, далее подгружаются последние викторины, затем mainMethod
         // задержка чтобы все успевало прогрузится
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        loadLast();
         // по хорошему здесь можно сделать проверку ( например score == null )
         // которая будет говорить что нихрена юзер не играл
     }
-    public void mainMethod() //TODO: Настя это твой метод, если ты в нем значит у тебя есть что выводить
-    {
-        // а именно score в котором лежит счет
-        // лист last с 5 или меньше последними викторинами
+
+    /**
+     * time to concentrate
+     */
+    private void startLoading() {
+        final ProgressDialog progresRing = ProgressDialog.show(ScoresActivity.this, " ", "Сейчас ты увидишь результаты последних игр!", true);
+        progresRing.setCancelable(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1800);
+                } catch (Exception e) {
+
+                }
+                progresRing.dismiss();
+            }
+        }).start();
     }
 
     public void loadScore()
@@ -67,7 +87,9 @@ public class ScoresActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.getData().containsKey("Score")) {
                             score = documentSnapshot.getData().get("Score").toString();
-                            loadLast();
+                            scores.setText("Всего заработано очков: "+score);
+                        }else{
+                            scores.setText("Всего заработано очков: "+0);
                         }
                     }
                 });
@@ -75,6 +97,7 @@ public class ScoresActivity extends AppCompatActivity {
 
     public void loadLast()
     {
+        countOfNull=0;
         db.collection("users")
                 .document(email)
                 .get()
@@ -85,13 +108,46 @@ public class ScoresActivity extends AppCompatActivity {
                         String tmp;
                         for (int i = 0; i < 5; ++i)
                         {
-                            tmp = map.get(String.valueOf(i)).toString();
-                            if (tmp == null)
-                                break;
-                            last.add(tmp);
+                            if(documentSnapshot.getData().containsKey(String.valueOf(i))&&(map.get(String.valueOf(i)))!=null) {
+                                tmp = map.get(String.valueOf(i)).toString();
+                                String[] array=getElements(tmp);
+                                String s;
+                                if(array[0].equals("7-"))
+                                    s="Младше 7";
+                                else
+                                    s="Старше 7";
+                                switch (i) {
+                                    case 0:
+                                        t1.setText(" ("+s+")"+array[1]+":   "+array[2]);
+                                        break;
+                                    case 1:
+                                        t2.setText(" ("+s+")"+array[1]+":   "+array[2]);
+                                        break;
+                                    case 2:
+                                        t3.setText(" ("+s+")"+array[1]+":   "+array[2]);
+                                        break;
+                                    case 3:
+                                        t4.setText(" ("+s+")"+array[1]+":   "+array[2]);
+                                        break;
+                                    case 4:
+                                        t5.setText(" ("+s+")"+array[1]+":   "+array[2]);
+                                        break;
+                                }
+                            }else{
+                                countOfNull++;
+                                continue;
+                            }
                         }
-                        mainMethod();
+                        if(countOfNull==5)
+                            t1.setText("Ты еще не сыграл ни одной игры!\nСкорее начинай :)");
                     }
                 });
+    }
+
+    public String[] getElements(String str)
+    {
+        String[] array=null;
+        array = str.split(" ");
+        return array;
     }
 }

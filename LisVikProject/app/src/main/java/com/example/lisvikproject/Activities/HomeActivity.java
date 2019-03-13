@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import com.example.lisvikproject.Models.TypefaceUtil;
 
 import com.example.lisvikproject.R;
 
@@ -30,9 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        //шрифт
-        TypefaceUtil.overrideFont(getApplicationContext(), "SANS_SERIF", "fonts/font_humanist.otf");
 
         startTest=(Button)findViewById(R.id.toTest);
 
@@ -54,11 +49,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.myAchivements:
-                        Toast.makeText(HomeActivity.this, "Достижения", Toast.LENGTH_SHORT).show();
-                        Intent currentIntent = getIntent();
                         Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
-                        intent.putExtra("category",currentIntent.getStringExtra("category"));
-                        intent.putExtra("score", currentIntent.getStringExtra("score"));
                         startActivity(intent);
                         break;
                     case R.id.myNews:
@@ -100,9 +91,6 @@ public class HomeActivity extends AppCompatActivity {
      * To show to user the info about the test
      */
     public void showAlertDialogOfInfo(){
-
-        //шрифт
-        TypefaceUtil.overrideFont(getApplicationContext(), "SANS_SERIF", "fonts/font_humanist.otf");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Правила викторины");

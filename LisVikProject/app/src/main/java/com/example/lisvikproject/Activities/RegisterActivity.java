@@ -127,6 +127,14 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void сreateUserAccount(String email, final String name, final String age, String password) {
 
         //this method creates user account with specific email and password
