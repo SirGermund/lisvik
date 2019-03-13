@@ -60,11 +60,11 @@ public class ScoresActivity extends AppCompatActivity {
     }
 
     private void loadMedals() {
-                            if(Integer.parseInt(score)>1)
+                            if(Integer.parseInt(score)>50)
                                 bronse.setImageResource(R.drawable.medal_bronze);
-                            if(Integer.parseInt(score)>2)
+                            if(Integer.parseInt(score)>100)
                                 silver.setImageResource(R.drawable.medal_silver);
-                            if(Integer.parseInt(score)>=3)
+                            if(Integer.parseInt(score)>150)
                                 gold.setImageResource(R.drawable.medal_gold);
     }
 
