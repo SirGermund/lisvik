@@ -34,17 +34,31 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.52" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="380dp"
+        android:layout_height="271dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/answer1"
+        app:srcCompat="@drawable/question"
+        tools:layout_editor_absoluteX="18dp" />
+
     <TextView
         android:id="@+id/questionText"
         android:layout_width="330dp"
-        android:layout_height="222dp"
+        android:layout_height="236dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:background="@drawable/question"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,5 +123,7 @@
         android:textSize="25sp"
         android:textColor="#FF7700"
         android:background="@drawable/clock"/>
+
+
 
 </android.support.constraint.ConstraintLayout>
