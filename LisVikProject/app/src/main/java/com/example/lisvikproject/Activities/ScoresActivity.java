@@ -139,7 +139,7 @@ public class ScoresActivity extends AppCompatActivity {
                             }
                         }
                         if(countOfNull==5)
-                            t1.setText("Ты еще не сыграл ни одной игры!\nСкорее начинай :)");
+                            t1.setText("У тебя еще не сыграно ни одной игры!\nСкорее начинай :)");
                     }
                 });
     }
