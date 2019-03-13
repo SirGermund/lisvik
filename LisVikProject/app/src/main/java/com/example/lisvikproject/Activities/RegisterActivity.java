@@ -135,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    private void сreateUserAccount(String email, final String name, final String age, String password) {
+    private void сreateUserAccount(String email, final String name, final String age, final String password) {
 
         //this method creates user account with specific email and password
 
@@ -153,7 +153,10 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
 
                             //account creation failed
-                            showMessage("При создании аккаунта возникла ошибка!"+task.getException().getMessage());
+                            if(password.length()<6)
+                                showMessage("Пароль не может быть менее 6 символов!");
+                            else
+                                showMessage("Некорректная электронная почта!");
                             regBtn.setVisibility(View.VISIBLE);
                             loadingProgress.setVisibility(View.INVISIBLE);
 
