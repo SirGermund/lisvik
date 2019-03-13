@@ -12,17 +12,20 @@
         android:id="@+id/questionNumber"
         android:layout_width="290dp"
         android:layout_height="55dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginLeft="41dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="80dp"
         android:layout_marginRight="80dp"
         android:layout_marginBottom="8dp"
+        android:gravity="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/questionText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -40,7 +43,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/textViewBackground"
+        android:gravity="center"
+        android:background="@drawable/question"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,6 +104,10 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answer3" />
+        app:layout_constraintTop_toBottomOf="@+id/answer3"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="#FF7700"
+        android:background="@drawable/clock"/>
 
 </android.support.constraint.ConstraintLayout>
