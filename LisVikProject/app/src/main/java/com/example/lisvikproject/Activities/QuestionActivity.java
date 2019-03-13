@@ -33,6 +33,7 @@ public class QuestionActivity extends AppCompatActivity {
     Button ans1, ans2, ans3;
     TextView questionText, questionNumber, timer;
     List<Question> qlist;
+    CountDownTimer countDownTimer;
     int questNumberInt = 0, total = 0, correct = 0, ifTimeIsFinished=0;
 
     String ageValue, categoryValue;
@@ -104,7 +105,9 @@ public class QuestionActivity extends AppCompatActivity {
             addScore();
             showAlertDialogOfResults(categoryValue, String.valueOf(correct));
         } else {
-
+            if (countDownTimer != null)
+                countDownTimer.cancel();
+            reverseTimer();
             ans1.setEnabled(true);
             ans2.setEnabled(true);
             ans3.setEnabled(true);
@@ -337,21 +340,22 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
-    public void reverseTimer(final TextView tv)
+    public void reverseTimer()
     {
-        new CountDownTimer( 60000, 1000)
+        countDownTimer = new CountDownTimer( 60000, 1000)
         {
             public void onTick(long l)
             {
-                tv.setText(""+l/1000);
+                timer.setText(""+l/1000);
             }
 
             public void onFinish()
             {
-                tv.setText("Время истекло!");
+                timer.setText("Время истекло!");
                 updateQuestion(ifTimeIsFinished);
             }
-        }.start();
+        };
+        countDownTimer.start();
 
     }
 
