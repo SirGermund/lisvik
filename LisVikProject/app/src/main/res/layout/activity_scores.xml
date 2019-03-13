@@ -8,6 +8,31 @@
     tools:context=".Activities.ScoresActivity"
     android:background="@drawable/background_foxies_sitting">
 
+    <ImageView
+        android:id="@+id/gold"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t5"
+        app:srcCompat="@drawable/medal_nothing" />
+
+    <ImageView
+        android:id="@+id/silver"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/bronse"
+        app:layout_constraintStart_toEndOf="@+id/gold"
+        app:layout_constraintTop_toBottomOf="@+id/t5"
+        app:srcCompat="@drawable/medal_nothing" />
+
     <TextView
         android:id="@+id/achievementsText"
         android:layout_width="wrap_content"
@@ -43,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.31" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <TextView
         android:id="@+id/t1"
@@ -114,4 +139,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t4" />
+
+    <ImageView
+        android:id="@+id/bronse"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t5"
+        app:srcCompat="@drawable/medal_nothing" />
 </android.support.constraint.ConstraintLayout>

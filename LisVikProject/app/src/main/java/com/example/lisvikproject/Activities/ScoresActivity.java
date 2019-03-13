@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class ScoresActivity extends AppCompatActivity {
 
     int countOfNull=0;
+    ImageView gold, silver, bronse;
     TextView achievements, scores, t1, t2, t3, t4, t5;
     String score;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,14 +50,22 @@ public class ScoresActivity extends AppCompatActivity {
         t3=findViewById(R.id.t3);
         t4=findViewById(R.id.t4);
         t5=findViewById(R.id.t5);
+        gold=findViewById(R.id.gold);
+        silver=findViewById(R.id.silver);
+        bronse=findViewById(R.id.bronse);
 
         startLoading();
-
-        loadScore(); // если есть счет то он лежит в score, далее подгружаются последние викторины, затем mainMethod
-        // задержка чтобы все успевало прогрузится
+        loadScore();
         loadLast();
-        // по хорошему здесь можно сделать проверку ( например score == null )
-        // которая будет говорить что нихрена юзер не играл
+    }
+
+    private void loadMedals() {
+                            if(Integer.parseInt(score)>1)
+                                bronse.setImageResource(R.drawable.medal_bronze);
+                            if(Integer.parseInt(score)>2)
+                                silver.setImageResource(R.drawable.medal_silver);
+                            if(Integer.parseInt(score)>=3)
+                                gold.setImageResource(R.drawable.medal_gold);
     }
 
     /**
@@ -140,6 +150,8 @@ public class ScoresActivity extends AppCompatActivity {
                         }
                         if(countOfNull==5)
                             t1.setText("У тебя еще не сыграно ни одной игры!\nСкорее начинай :)");
+                        else
+                            loadMedals();
                     }
                 });
     }
