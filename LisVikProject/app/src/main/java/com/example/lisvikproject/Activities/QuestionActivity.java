@@ -268,8 +268,6 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         Intent intent = new Intent(getApplicationContext(), ChooseAgeActivity.class);
-                        intent.putExtra("category", category);
-                        intent.putExtra("score", score);
                         startActivity(intent);
                         finish();
                     }
