@@ -127,6 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    back button event handler
+     */
     @Override
     public void onBackPressed()
     {
@@ -135,6 +138,9 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
+    /*
+    to create user account or report an error
+     */
     private void сreateUserAccount(String email, final String name, final String age, final String password) {
 
         //this method creates user account with specific email and password
@@ -165,7 +171,9 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    //update user photo, age and name
+    /*
+    update user photo, age and name
+     */
     private void updateUserInfo(final String name, Uri pickedImgUri, String age, final FirebaseUser currentUser) {
 
         // Делаем мапу юзера
