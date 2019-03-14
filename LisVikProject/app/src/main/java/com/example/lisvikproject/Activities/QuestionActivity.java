@@ -79,6 +79,7 @@ public class QuestionActivity extends AppCompatActivity {
     private void startLoading() {
         final ProgressDialog progresRing = ProgressDialog.show(QuestionActivity.this, "Приготовься!", "Игра начинается...", true);
         progresRing.setCancelable(false);
+        progresRing.setCanceledOnTouchOutside(false);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -124,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Вы действительно хотите выйти?");
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         builder.setPositiveButton(android.R.string.yes,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -141,6 +141,7 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 }

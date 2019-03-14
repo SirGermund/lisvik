@@ -45,8 +45,6 @@ public class ChooseAgeActivity extends AppCompatActivity{
                         startActivity(intent2);
                         finish();
                         break;
-                    case R.id.default_activity_button:
-                        break;
                 }
             }
         };

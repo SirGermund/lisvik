@@ -74,6 +74,7 @@ public class ScoresActivity extends AppCompatActivity {
     private void startLoading() {
         final ProgressDialog progresRing = ProgressDialog.show(ScoresActivity.this, " ", "Сейчас ты увидишь результаты последних игр!", true);
         progresRing.setCancelable(false);
+        progresRing.setCanceledOnTouchOutside(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -161,5 +162,13 @@ public class ScoresActivity extends AppCompatActivity {
         String[] array=null;
         array = str.split(" ");
         return array;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
