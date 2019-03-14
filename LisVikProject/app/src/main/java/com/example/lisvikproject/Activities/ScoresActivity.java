@@ -73,7 +73,7 @@ public class ScoresActivity extends AppCompatActivity {
      */
     private void startLoading() {
         final ProgressDialog progresRing = ProgressDialog.show(ScoresActivity.this, " ", "Сейчас ты увидишь результаты последних игр!", true);
-        progresRing.setCancelable(true);
+        progresRing.setCancelable(false);
         new Thread(new Runnable() {
             @Override
             public void run() {

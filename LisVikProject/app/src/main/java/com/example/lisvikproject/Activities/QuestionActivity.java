@@ -34,7 +34,7 @@ public class QuestionActivity extends AppCompatActivity {
     TextView questionText, questionNumber, timer;
     List<Question> qlist;
     CountDownTimer countDownTimer;
-    int questNumberInt = 0, total = 0, correct = 0, ifTimeIsFinished=0;
+    int total = 0, correct = 0, ifTimeIsFinished=0;
 
     String ageValue, categoryValue;
 
@@ -78,7 +78,7 @@ public class QuestionActivity extends AppCompatActivity {
      */
     private void startLoading() {
         final ProgressDialog progresRing = ProgressDialog.show(QuestionActivity.this, "Приготовься!", "Игра начинается...", true);
-        progresRing.setCancelable(true);
+        progresRing.setCancelable(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -264,7 +264,7 @@ public class QuestionActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Результаты викторины!");
         builder.setMessage("Ты молодец! \nКоличество правильных ответов: \n"+correct+"/10");
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         builder.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -277,6 +277,7 @@ public class QuestionActivity extends AppCompatActivity {
                 });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 
@@ -317,7 +318,7 @@ public class QuestionActivity extends AppCompatActivity {
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ты действительно хочешь прервать викторину?");
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         builder.setPositiveButton("Да",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -336,6 +337,7 @@ public class QuestionActivity extends AppCompatActivity {
                 });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 
