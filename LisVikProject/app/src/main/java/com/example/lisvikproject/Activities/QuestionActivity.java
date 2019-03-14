@@ -103,6 +103,7 @@ public class QuestionActivity extends AppCompatActivity {
         ifTimeIsFinished++;
         if (total > 10) {
             //end of the test
+            countDownTimer.cancel();
             addScore();
             showAlertDialogOfResults(categoryValue, String.valueOf(correct));
         } else {
@@ -324,6 +325,7 @@ public class QuestionActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        countDownTimer.cancel();
                         Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                         finish();
